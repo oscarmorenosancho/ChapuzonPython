@@ -6,15 +6,17 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:32:27 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/13 15:21:51 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/14 14:38:15 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+import string
 
 def count_set_instr(s :str, set :str) -> int:
     acum = 0
     for c in set:
-	    acum += s.count(c)
-    return(acum)
+        acum += s.count(c)
+    return acum
 
 def text_analyzer(s =None):
     """text_analyzer es una funcion que toma una string como parametro y 
@@ -23,10 +25,6 @@ def text_analyzer(s =None):
     Si el string proporcionado es None pide al usuario que introduzca
     un string
     """
-    majus = "ABCDEFGHIJKLMNPQRSTUVWXYZ"
-    minus = majus.swapcase()
-    punt_mark = ",.;:?!"
-    spaces = " \n"
 
     if s == None:
         s = input("The argument is invalid, Introduce a string >")
@@ -36,13 +34,13 @@ def text_analyzer(s =None):
         print ("The text contains {} character(s):"
             .format(len(s)))
         print ("- {} upper letter(s)"
-            .format(count_set_instr(s, majus)))
+            .format(count_set_instr(s, string.ascii_uppercase)))
         print ("- {} lower letter(s)"
-            .format(count_set_instr(s, minus)))
+            .format(count_set_instr(s, string.ascii_lowercase)))
         print ("- {} punctuation mark(s)"
-            .format(count_set_instr(s, punt_mark)))
+            .format(count_set_instr(s, string.punctuation)))
         print ("- {} space(s)"
-            .format(count_set_instr(s, spaces)))
+            .format(count_set_instr(s, string.whitespace)))
 
 if __name__ == "__main__":
     import sys
