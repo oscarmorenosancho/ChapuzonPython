@@ -6,11 +6,12 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 12:32:27 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/14 14:38:15 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/14 17:25:26 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import string
+import sys
 
 def count_set_instr(s :str, set :str) -> int:
     acum = 0
@@ -43,7 +44,6 @@ def text_analyzer(s =None):
             .format(count_set_instr(s, string.whitespace)))
 
 if __name__ == "__main__":
-    import sys
     params = sys.argv[1:]
     #if len(params) < 1:
     #    print("AssertionError: no argument is provided")
