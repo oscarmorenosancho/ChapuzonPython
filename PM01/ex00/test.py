@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 09:42:45 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/15 10:52:30 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/16 11:55:18 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,16 @@ ensalada = Recipe("ensalada", 3, ['lechuga', 'aceite', 'vinagre', 'queso'], 'ent
 book.add_recipe(ensalada)
 cocido = Recipe("cocido", 3, ['lentejas', 'chorizo', 'cebolla'], 'comida')
 book.add_recipe(cocido)
-book.add_recipe(['sda', "asd"])
 print("\nafter updating")
 print (book)
+print("\nappend invalid recipe")
+book.add_recipe(['sda', "asd"])
+print("\nafter append invalid recipe")
+print (book)
+print ("get recipe tarta")
+book.get_recipe_by_name('tarta')
+print ("get recipe ensalada")
+book.get_recipe_by_name('ensalada')
+print ("get recipes per type comida")
+for r in book.get_recipes_by_types('comida'):
+    print (r)

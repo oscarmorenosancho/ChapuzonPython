@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 09:17:15 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/15 10:52:04 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/16 11:51:19 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,25 @@ class Book:
             self.creation_date = creation_date
         self.last_update = self.creation_date
 
-    def get_recipe_by_name(self, name):
+    def get_recipe_by_name(self, name) -> Recipe:
         """Imprime la receta con el nombre \texttt{name}
         y devolver la instancia"""
-        text = "\t {0}\n".format(self.name)
-        print(text)
-        return self
+        err_msg = "Assertion error: "
+        allowed_types = ['postre', 'comida','entrante']
+        rec = None
+        i = 0
+        allowed_types_len = len (allowed_types)
+        while (rec == None and i < allowed_types_len):
+            rec_arr = [r for r in self.recipes_list[allowed_types[i]] if r.name == name]
+            if rec_arr:
+                rec = rec_arr[0]
+            i += 1
+        if (rec):
+            text = f"\t {rec}\n"
+            print(text)
+        else:
+            err_msg + f"receipt named {name} not found"
+        return rec
 
     def get_recipes_by_types(self, recipe_type):
         """Devuelve todas las recetas dado un recipe_type """
@@ -44,13 +57,18 @@ class Book:
 
     def add_recipe(self, recipe):
         """Añade una receta al libro y actualiza last_update"""
-        if isinstance(recipe, Recipe):
+        err_msg = "Assertion error: "
+        if not isinstance(recipe, Recipe):
+            print (err_msg + "you must provide an instance of Recipe")
+            print (f"this object: {recipe}")
+            print ("is not a Recipe")
+        elif not recipe.recipe_type in ['postre', 'comida','entrante']:
+            print (err_msg + "the receipt is not a valid recipe type")
+            print (f"this object {recipe.name} type: {recipe.recipe_type}")
+            print ("is not a valid recipe type")
+        else:
             self.recipes_list[recipe.recipe_type].append(recipe)
             self.last_update = datetime.now()
-        else:
-            print ("Assertion Error: you must provide an instance of Recipe")
-            print ("this object: {}".format(recipe))
-            print ("is not a Recipe")
 
     def __str__(self):
         """Return the string to print with the book info"""
