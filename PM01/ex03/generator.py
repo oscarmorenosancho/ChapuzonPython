@@ -6,14 +6,14 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/16 13:25:09 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/16 13:57:01 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/16 15:46:27 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from random import random
 
 def random_in_size(size: int) -> int:
-    return int(random() * size + 1)
+    return int(random() * size)
 
 def generator(text, sep=" ", option=None) -> list:
     '''Divide el texto de acuerdo al valor de sep y producirá las sub-strings.
@@ -21,14 +21,30 @@ def generator(text, sep=" ", option=None) -> list:
     ser producidas. '''
     options = [None, "shuffle", "unique", "ordered"]
     if not isinstance(text, str):
-        raise AssertionError("first argument must be a string")
+        print ("ERROR")
+        return None
     elif sep == None or sep == '':
-        msg = f"separator can not be None or Empty"
-        raise AssertionError(msg)
+        print ("ERROR")
+        return None
     elif not option in options:
-        msg = f"option can only be in {options[1:]} or not specified"
-        raise AssertionError(msg)
+        print ("ERROR")
+        return None
     else:
         lst = text.split(sep)
-        print (random_in_size(len(lst)))
-        return lst
+        ret_lst = []
+        if option == "shuffle":
+            while lst:
+                inx = random_in_size(len(lst))
+                it = lst.pop(inx)
+                ret_lst.append(it)
+        elif option == "unique":
+            while lst:
+                it = lst.pop(0)
+                if not it in ret_lst:
+                    ret_lst.append(it)
+        elif option == "ordered":
+            ret_lst = [*lst]
+            ret_lst.sort()
+        else:
+            ret_lst = lst
+        return ret_lst
