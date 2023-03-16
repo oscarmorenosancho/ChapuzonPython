@@ -6,11 +6,9 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 11:26:27 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/16 12:41:01 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/16 13:29:07 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-from typing import overload
 
 class Vector:
     values: list
@@ -30,8 +28,6 @@ class Vector:
             self.initVector_list(new_i.values)
         else:
             raise AssertionError("argument is not a valid type")
-            self.values = [[]]
-            self.shape = (0, 0)
 
     def initVector_list(self, values: list):
         if isinstance(values[0], list):
@@ -64,10 +60,8 @@ class Vector:
         self.shape = (0, 0)
         if len(interv) != 2:
             raise AssertionError("the interval must contain 2 values")
-            return None
         elif interv[0] >= interv[1]:
             raise AssertionError("the interval start must be smaller")
-            return None
         else:
             size = int(interv[1] - interv[0])
             self.shape = (size, 1)
@@ -98,10 +92,8 @@ class Vector:
         res = 0.0
         if not isinstance(other, Vector):
             raise AssertionError("another Vector must be provided")
-            return None
         elif self.shape != other.shape:
             raise AssertionError("Vector dimensions must match")
-            return None
         else:
             for i in range(self.shape[0]):
                 for j in range(self.shape[1]):
@@ -139,10 +131,8 @@ class Vector:
     def add_Vector(self, other):
         if not isinstance(other, Vector):
             raise AssertionError("another Vector must be provided")
-            return None
         elif self.shape != other.shape:
             raise AssertionError("Vector dimensions must match")
-            return None
         else:
             values_list = []
             for i in range(self.shape[0]):
@@ -167,10 +157,8 @@ class Vector:
     def sub_Vector(self, other):
         if not isinstance(other, Vector):
             raise AssertionError("another Vector must be provided")
-            return None
         elif self.shape != other.shape:
             raise AssertionError("Vector dimensions must match")
-            return None
         else:
             values_list = []
             for i in range(self.shape[0]):
@@ -195,10 +183,8 @@ class Vector:
     def mul_Vector(self, other):
         if not isinstance(other, Vector):
             raise AssertionError("another Vector must be provided")
-            return None
         elif self.shape != other.shape:
             raise AssertionError("vector dimensions must match")
-            return None
         else:
             return self.dot(other)
 
@@ -211,7 +197,6 @@ class Vector:
             return self.add_float(float(other))
         else:
             raise NotImplementedError("other operand must be escalar or Vector")
-            return None
     
     def __radd__(self, other):
         return self.__add__(other)
@@ -225,7 +210,6 @@ class Vector:
             return self.sub_float(float(other))
         else:
             raise NotImplementedError("other operand must be escalar or Vector")
-            return None
     
     def __rsub__(self, other):
         return self.__sub__(other) * -1
@@ -239,7 +223,6 @@ class Vector:
             return self.mul_float(float(other))
         else:
             raise NotImplementedError("other operand must be escalar or Vector")
-            return None
     
     def __rmul__(self, other):
         if isinstance(other, Vector):
@@ -250,8 +233,6 @@ class Vector:
             return self.mul_float(float(other))
         else:
             raise NotImplementedError("other operand must be escalar or Vector")
-            return None
-        return self.__mul__(other)
     
     def __truediv__(self, other):
         if isinstance(other, Vector):
@@ -262,17 +243,13 @@ class Vector:
                 return self.mul_float(1/other)
             else:
                 raise ZeroDivisionError("divisor can't be zero")
-                return None
         elif isinstance(other, int):
             if other != 0:
                 return self.mul_float(1/float(other))
             else:
                 raise ZeroDivisionError("divisor can't be zero")
-                return None
         else:
             raise NotImplementedError("other operand must be escalar or Vector")
-            return None
      
     def __rtruediv__(self, other):
         raise NotImplementedError("divisor can't be a Vector")
-        return None
