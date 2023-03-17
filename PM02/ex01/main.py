@@ -6,23 +6,37 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 16:28:38 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/17 16:46:13 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/17 18:20:01 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-def what_are_the_vars(*argv): 
+def is_iterable(obj):
+    try:
+        iter(obj)
+        return True
+    except TypeError:
+        return False
+    
+def what_are_the_vars(*argv, **kwargs): 
     """
     ...
     """
-    # ... Your code here ...
-    objC = ObjectC()
-    for x in argv:
-        setattr(x, '')
+    if (argv and is_iterable(argv)) or kwargs:
+        objC = ObjectC()
+    else:
+        objC = None
+    if argv and is_iterable(argv):
+        i = 0
+        for arg in argv:
+            setattr(objC, 'var_'+str(i), arg)
+            i += 1
+    if kwargs:
+        for arg in kwargs:
+            setattr(objC, arg, kwargs[arg])
     return objC 
 
 class ObjectC(object):
     def __init__(self):
-        # ... Your code here ...
         return
 
 def doom_printer(obj):
