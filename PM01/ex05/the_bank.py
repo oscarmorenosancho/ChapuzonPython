@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/16 16:31:38 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/16 18:57:02 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/17 10:56:24 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,11 @@ class Bank(object):
         @return   True if success, False if an error occured
         """
         # test if new_account is an Account() instance and if # it can be appended to the attribute accounts
-        # ... Your code ...
         if not isinstance(new_account, Account):
             return False
-        if self.check_account_corrupt(new_account):
-            return False     
+        acc_lst = [acc for acc in self.accounts if acc.name == new_account.name]     
+        if acc_lst:
+            return False 
         self.accounts.append(new_account)
         return True
 
@@ -61,6 +61,8 @@ class Bank(object):
         if not isinstance(dest, str):
             return False
         if not isinstance(amount, int) and not isinstance(amount, float):
+            return False
+        if amount <= 0.0:
             return False
         origin_acc_lst = [acc for acc in self.accounts if acc.name == origin]
         if (origin == dest):
@@ -97,7 +99,7 @@ class Bank(object):
         acc = acc_lst[0]
         if not isinstance(acc, Account):
             return False
-        if self.check_account_corrupt(acc):
+        if not self.check_account_corrupt(acc):
             return True
         account_attribs = dir(acc)
         b_atrs = list(filter(lambda x: x.startswith('b'), account_attribs))
