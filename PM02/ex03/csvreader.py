@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 18:24:54 by omoreno-          #+#    #+#              #
-#    Updated: 2023/03/17 18:59:29 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/03/18 10:56:35 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,12 @@ class CsvReader():
         self.header = header
         self.skip_top = skip_top
         self.skip_bottom = skip_bottom
-        return
+        return None
 
     def __enter__(self):
     # ... Your code here ...
         print('enter method called')
+        self.fhand = None
         #open file
         if self.filename:
             try:
@@ -37,7 +38,7 @@ class CsvReader():
                 exit()
         else:
             print("File open error: you must provide a filename")
-        return
+        return self.fhand
     
     def __exit__(self, exc_type, exc_value, exc_traceback):
     # ... Your code here ...
@@ -62,3 +63,5 @@ class CsvReader():
                 list: representing the data (when self.header is True). 
                 None: (when self.header is False).
         """
+        line = self.fhand.readline()
+        repr(line)
